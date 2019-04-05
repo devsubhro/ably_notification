@@ -1,8 +1,18 @@
 <html>
     <head>
         <title>Ably Notification</title>
+        <script src="https://cdn.ably.io/lib/ably.min-1.js"></script>
     </head>
     <body>
-        <p>Notification {{name}}</p>
+        <h4>Notification</h4>
+        <div id="content">Fetching</div>
     </body>
+    <script>
+        var notification_area = document.getElementById('content');
+        var realtime = new Ably.Realtime('{{api_key}}');
+        var channel = realtime.channels.get("{{chanel_name}}");
+        channel.subscribe(function (msg) {
+            notification_area.innerHTML += '<br />'+msg.data.msg;
+        });
+    </script>
 </html>

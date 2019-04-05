@@ -1,10 +1,15 @@
 /*****
- * This code returns a web page and that web page receives notification from ably.com channel.
+ * This code returns a web page and that web page receives notification from ably.io channel.
  * The channel name set by this code
  */
+const [ bin, sourcePath, ...args ] = process.argv;
+const fedback_channel_name = args[0];
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+
+const config = require('./config.js');
 const port = 3000;
 
 const request_handler = (request, response ) => {
@@ -31,9 +36,10 @@ const request_handler = (request, response ) => {
                 });
                 return;
             }
-            const string_file_data = file_data.toString();
-            const content = string_file_data.replace('{{name}}', 'asdfgthbvcsdr');
-            response.end(content);
+            let string_file_data = file_data.toString();
+            string_file_data = string_file_data.replace('{{api_key}}', config.api_key);
+            string_file_data = string_file_data.replace('{{chanel_name}}', fedback_channel_name);
+            response.end(string_file_data);
             fs.close(f_handle, (close_err) => {
                 //do nothing
                 return;

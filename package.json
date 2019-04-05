@@ -16,5 +16,7 @@
     "url": "https://github.com/devsubhro/ably_notification/issues"
   },
   "homepage": "https://github.com/devsubhro/ably_notification#readme",
-  "dependencies": {}
+  "dependencies": {
+    "ably": "^1.1.7"
+  }
 }
